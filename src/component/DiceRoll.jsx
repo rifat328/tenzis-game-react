@@ -14,13 +14,20 @@ const DiceRoll = () => {
   }
   console.log(dice);
   const reRoll = () => {
-    setDice(generateAllNewDice);
+    // setDice(generateAllNewDice);
+    setDice((dices) =>
+      dices.map((dice) =>
+        dice.isHeld === false
+          ? { ...dice, value: Math.floor(Math.random() * 6) }
+          : dice
+      )
+    );
   };
 
   const hold = (id) => {
     setDice(
       dice.map((dices) => {
-        dices.id === id ? { ...dices, isHeld: true } : { ...dices };
+        return dices.id === id ? { ...dices, isHeld: !dices.isHeld } : dices;
       })
     );
   };
